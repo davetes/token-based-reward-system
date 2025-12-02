@@ -1,0 +1,74 @@
+.wallet-connection {
+  text-align: center;
+}
+
+.wallet-connected {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.wallet-info {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+}
+
+.wallet-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.1rem;
+  color: #28a745;
+  font-weight: 600;
+}
+
+.status-indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.status-indicator.connected {
+  background: #28a745;
+  box-shadow: 0 0 10px rgba(40, 167, 69, 0.5);
+}
+
+.wallet-address {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f8f9fa;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+}
+
+.copy-button {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 5px;
+  transition: transform 0.2s ease;
+}
+
+.copy-button:hover {
+  transform: scale(1.2);
+}
+
+.wallet-disconnected {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.wallet-disconnected p {
+  color: #666;
+  font-size: 1.1rem;
+}
+
