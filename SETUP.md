@@ -29,7 +29,9 @@ SEPOLIA_URL=https://sepolia.infura.io/v3/your_infura_key
 #### Backend (.env in backend/)
 ```
 PORT=5000
-MONGODB_URI=mongodb://localhost:27017/reward-system
+# PostgreSQL connection string (recommended)
+DATABASE_URL=postgres://postgres:postgres@localhost:5432/reward_system
+# Or set PGHOST/PGPORT/PGDATABASE/PGUSER/PGPASSWORD instead of DATABASE_URL
 RPC_URL=http://localhost:8545
 PRIVATE_KEY=your_private_key_here
 REWARD_TOKEN_ADDRESS=your_deployed_token_address
@@ -82,18 +84,17 @@ npx hardhat compile
 
 **Note**: The placeholder ABI files are already created, but you should update them with the actual compiled ABIs for full functionality.
 
-### 5. Start MongoDB
+### 5. Start PostgreSQL
 
-Make sure MongoDB is running:
+Make sure PostgreSQL is running and create a database:
 ```bash
-# Windows
-net start MongoDB
-
-# macOS/Linux
-mongod
+# Example (psql)
+createdb reward_system
 ```
 
-Or use MongoDB Atlas (cloud) and update `MONGODB_URI` in backend `.env`.
+Then set `DATABASE_URL` in `backend/.env` (or `PGHOST/PGPORT/PGDATABASE/PGUSER/PGPASSWORD`).
+
+Note: The backend will auto-create the required tables on startup.
 
 ### 6. Start Backend Server
 
@@ -136,7 +137,7 @@ Frontend will open at `http://localhost:3000`
 - Verify private key is set correctly
 
 ### Backend Connection Issues
-- Ensure MongoDB is running
+- Ensure PostgreSQL is running and `DATABASE_URL` is correct
 - Check that contract addresses in `.env` are correct
 - Verify RPC_URL matches your network
 

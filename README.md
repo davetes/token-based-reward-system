@@ -65,7 +65,7 @@ npm install
 Create a `.env` file in the `backend` directory:
 ```
 PORT=5000
-MONGODB_URI=mongodb://localhost:27017/reward-system
+DATABASE_URL=postgres://postgres:postgres@localhost:5432/reward_system
 RPC_URL=http://localhost:8545
 PRIVATE_KEY=your_private_key_here
 REWARD_TOKEN_ADDRESS=your_deployed_token_address

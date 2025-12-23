@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
-const mongoose = require('mongoose');
 require('dotenv').config();
+const { initDb } = require('./db');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -14,24 +14,28 @@ app.use(express.json());
 const rewardRoutes = require('./routes/rewards');
 const transactionRoutes = require('./routes/transactions');
 
-// Database connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/reward-system', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => console.log('MongoDB connected'))
-.catch(err => console.error('MongoDB connection error:', err));
+async function start() {
+  try {
+    await initDb();
+    console.log("PostgreSQL schema ready");
 
-// Routes
-app.use('/api/rewards', rewardRoutes);
-app.use('/api/transactions', transactionRoutes);
+    // Routes
+    app.use('/api/rewards', rewardRoutes);
+    app.use('/api/transactions', transactionRoutes);
 
-// Health check
-app.get('/api/health', (req, res) => {
-  res.json({ status: 'OK', message: 'Reward System API is running' });
-});
+    // Health check
+    app.get('/api/health', (req, res) => {
+      res.json({ status: 'OK', message: 'Reward System API is running' });
+    });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  } catch (err) {
+    console.error("PostgreSQL init error:", err);
+    process.exit(1);
+  }
+}
+
+start();
 
